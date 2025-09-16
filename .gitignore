@@ -1,2 +1,8 @@
 node_modules
 .next
+.env
+
+/test-results/
+/playwright-report/
+/blob-report/
+/playwright/.cache/
