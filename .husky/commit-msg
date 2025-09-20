@@ -1,0 +1,22 @@
+msg=$(cat "$1")
+
+# Remove Git comments (lines starting with #)
+msg=$(echo "$msg" | grep -v "^#")
+
+# Process emoji replacement
+msg=$(echo "$msg" | sed -e "s/^init/🎉 init/")
+msg=$(echo "$msg" | sed -e "s/^feat/✨ feat/")
+msg=$(echo "$msg" | sed -e "s/^fix/🐛 fix/")
+msg=$(echo "$msg" | sed -e "s/^docs/📚 docs/")
+msg=$(echo "$msg" | sed -e "s/^style/💎 style/")
+msg=$(echo "$msg" | sed -e "s/^refactor/📦 refactor/")
+msg=$(echo "$msg" | sed -e "s/^perf/🚀 perf/")
+msg=$(echo "$msg" | sed -e "s/^test/🚨 test/")
+msg=$(echo "$msg" | sed -e "s/^build/🛠 build/")
+msg=$(echo "$msg" | sed -e "s/^ci/⚙️ ci/")
+msg=$(echo "$msg" | sed -e "s/^chore/♻️ chore/")
+msg=$(echo "$msg" | sed -e "s/^revert/🗑 revert/")
+
+echo "$msg" > "$1"
+
+npx commitlint --edit $1
