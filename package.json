@@ -6,20 +6,30 @@
   "author": "João Vitor <jvitordiass@outlook.com.br>",
   "license": "MIT",
   "scripts": {
-    "dev": "next dev --turbopack",
+    "dev": "./init.sh",
     "build": "next build",
     "start": "next start",
-    "test": "jest",
+    "services:up": "docker compose -f src/infra/compose.yml up -d",
+    "services:stop": "docker compose -f src/infra/compose.yml stop",
+    "services:down": "docker compose -f src/infra/compose.yml down",
+    "services:wait:database": "node src/infra/scripts/wait-for-postgres.js",
+    "db:migrate": "exec prisma migrate dev",
+    "db:studio": "exec prisma studio",
+    "db:generate": "exec prisma generate",
+    "db:reset": "exec prisma migrate reset --force",
+    "test": "./init.sh test",
     "test:watch": "jest --watchAll",
-    "test:ci": "jest --runInBand",
     "lint:check": "eslint .",
     "lint:fix": "eslint --fix .",
     "prettier:check": "prettier --check .",
     "prettier:fix": "prettier --write .",
     "prepare": "husky",
-    "generate": "plop --plopfile generators/plopfile.js"
+    "generate": "plop --plopfile generators/plopfile.js",
+    "postinstall": "pnpm prepare && pnpm db:generate"
   },
   "dependencies": {
+    "@prisma/client": "6.16.2",
+    "@prisma/extension-accelerate": "2.0.2",
     "next": "^15.5.2",
     "react": "^19.1.1",
     "react-dom": "^19.1.1"
@@ -38,6 +48,8 @@
     "@typescript-eslint/eslint-plugin": "^8.43.0",
     "@typescript-eslint/parser": "^8.43.0",
     "commitlint-config-emoji-convention": "^1.0.1",
+    "concurrently": "9.2.1",
+    "cross-fetch": "4.1.0",
     "eslint": "^9",
     "eslint-config-next": "^15.5.2",
     "eslint-config-prettier": "^10.1.8",
@@ -50,6 +62,7 @@
     "lint-staged": "^16.1.6",
     "plop": "^3.1.2",
     "prettier": "^3.6.2",
+    "prisma": "6.16.2",
     "typescript": "^5.9.2"
   }
 }
