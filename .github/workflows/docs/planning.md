@@ -89,3 +89,29 @@ Execute:
 ```sh
 pnpm test
 ```
+
+Pull Request: https://github.com/diasjoaovitor/saas-boilerplate/pull/3
+
+## UI
+
+### Plan
+
+Design based in Shadcn UI and Tailwind CSS V4
+
+### Development
+
+Install:
+
+```sh
+pnpm add -E tailwindcss @tailwindcss/postcss postcss
+```
+
+Add `postcss.config.mjs` and `src/styles/global.css`
+
+Import `globals.css` at `layout.tsx`
+
+Execute:
+
+```sh
+pnpm dlx shadcn@latest init
+```
